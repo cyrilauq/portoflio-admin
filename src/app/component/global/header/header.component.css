@@ -1,0 +1,14 @@
+:host {
+    width: 80%;
+}
+
+header {
+    background-color: aqua;
+    height: 3rem;
+    padding-inline: 5%;
+    padding-top: .5%;
+}
+
+header * {
+    margin: 0
+}
