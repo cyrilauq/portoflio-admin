@@ -1,1 +1,57 @@
-<p>form-add-project works!</p>
+<h3>Add a project</h3>
+
+<form class="add-project form">
+    <fieldset *ngIf="step === 0">
+        <div class="input-wrapper">
+            <label for="title">Title</label>
+            <input type="text" name="title" id="title" />
+        </div>
+        <div class="input-wrapper">
+            <label for="description">Description</label>
+            <input type="text" name="description" id="description" />
+        </div>
+        <div class="input-wrapper">
+            <label for="live-link">Live link</label>
+            <input type="text" name="live-link" id="live-link" />
+        </div>
+        <div class="input-wrapper">
+            <label for="title">Title</label>
+            <input type="text" name="title" id="title" />
+        </div>
+    </fieldset>
+    <fieldset *ngIf="step === 1">
+        <h4>Technologies</h4>
+        <ul class="project-tag-list list">
+            <li>tag 1</li>
+            <li>tag 2</li>
+        </ul>
+        <div class="input-wrapper">
+            <input type="text" name="technologie" id="technologie" />
+            <button>Add technologie</button>
+        </div>
+    </fieldset>
+    <fieldset *ngIf="step === 2">
+        <h4>Miniatures</h4>
+        <div class="input-wrapper">
+            <label for="presentation-miniature">Presentation miniature</label>
+            <input type="file" name="presentation-miniature" id="presentation-miniature" />
+        </div>
+        <div class="input-wrapper">
+            <label for="miniature">Miniature</label>
+            <input type="file" name="miniature" id="miniature" />
+        </div>
+        <ul class="project-files-list list">
+            <li>file1.png</li>
+            <li>file2.png</li>
+            <li>file3.png</li>
+        </ul>
+    </fieldset>
+    <div>
+        <button (click)="onPrevious($event)"*ngIf="step !== 0; else pseudoBlock">Previous</button>
+        <ng-template #pseudoBlock><div></div></ng-template>
+        <button *ngIf="step !== 2; else submit" (click)="onNext($event)">Next</button>
+        <ng-template #submit>
+            <button>Submit</button>
+        </ng-template>
+    </div>
+</form>

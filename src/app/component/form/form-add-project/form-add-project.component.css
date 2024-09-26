@@ -1,0 +1,39 @@
+.input-wrapper {
+    display: flex;
+    flex-direction: column;
+}
+
+.input-wrapper input {
+    min-width: 12rem;
+    margin-bottom: 1.2rem;
+}
+
+.input-wrapper label {
+    font-weight: 600;
+    margin-bottom: .5rem;
+}
+
+.input-wrapper label::after {
+    content: ":";
+}
+
+fieldset {
+    height: 300px;
+    width: 300px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+form fieldset + div {
+    display: flex;
+    justify-content: space-between;
+}
+
+.list {
+    padding:0;
+    list-style-type: none;
+    display: flex;
+    flex-wrap: wrap;
+}
