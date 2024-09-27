@@ -1,22 +1,22 @@
 <h3>Add a project</h3>
 
-<form class="add-project form">
+<form class="add-project form" [formGroup]="projectForm" (ngSubmit)="onSubmit()">
     <fieldset *ngIf="step === 0">
         <div class="input-wrapper">
             <label for="title">Title</label>
-            <input type="text" name="title" id="title" />
+            <input type="text" name="title" id="title" formControlName="title_control" />
         </div>
         <div class="input-wrapper">
             <label for="description">Description</label>
-            <input type="text" name="description" id="description" />
+            <input type="text" name="description" id="description" formControlName="description_control" />
         </div>
         <div class="input-wrapper">
             <label for="live-link">Live link</label>
-            <input type="text" name="live-link" id="live-link" />
+            <input type="text" name="live-link" id="live-link" formControlName="live_link_control" />
         </div>
         <div class="input-wrapper">
             <label for="title">Title</label>
-            <input type="text" name="title" id="title" />
+            <input type="text" name="title" id="title" formControlName="title_control" />
         </div>
     </fieldset>
     <fieldset *ngIf="step === 1">
@@ -26,11 +26,25 @@
             <li>tag 2</li>
         </ul>
         <div class="input-wrapper">
-            <input type="text" name="technologie" id="technologie" />
+            <input type="text" name="technologie" id="technologie" formControlName="technologie_control" />
             <button>Add technologie</button>
         </div>
     </fieldset>
     <fieldset *ngIf="step === 2">
+        <h4>Technologies</h4>
+        <ul class="project-links-list list">
+            <li>github (front): link</li>
+            <li>github (front): link</li>
+            <li>github (front): link</li>
+            <li>github (front): link</li>
+        </ul>
+        <div class="input-wrapper">
+            <input type="url" name="link_src" id="link_src" formControlName="link_src_control" />
+            <input type="text" name="link_name" id="link_name" formControlName="link_title_control" />
+            <button>Add technologie</button>
+        </div>
+    </fieldset>
+    <fieldset *ngIf="step === 3">
         <h4>Miniatures</h4>
         <div class="input-wrapper">
             <label for="presentation-miniature">Presentation miniature</label>
@@ -47,9 +61,9 @@
         </ul>
     </fieldset>
     <div>
-        <button (click)="onPrevious($event)"*ngIf="step !== 0; else pseudoBlock">Previous</button>
+        <button (click)="onPrevious($event)" *ngIf="step !== 0; else pseudoBlock">Previous</button>
         <ng-template #pseudoBlock><div></div></ng-template>
-        <button *ngIf="step !== 2; else submit" (click)="onNext($event)">Next</button>
+        <button *ngIf="step !== 3; else submit" (click)="onNext($event)">Next</button>
         <ng-template #submit>
             <button>Submit</button>
         </ng-template>
