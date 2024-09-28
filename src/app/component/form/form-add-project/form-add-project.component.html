@@ -48,11 +48,11 @@
         <h4>Miniatures</h4>
         <div class="input-wrapper">
             <label for="presentation-miniature">Presentation miniature</label>
-            <input type="file" name="presentation-miniature" id="presentation-miniature" />
+            <input type="file" name="presentation-miniature" id="presentation-miniature" (change)="onMiniatureSelected($event)" />
         </div>
         <div class="input-wrapper">
             <label for="miniature">Miniature</label>
-            <input type="file" name="miniature" id="miniature" />
+            <input type="file" name="miniature" id="miniature" (change)="onScreenshotsChange($event)" />
         </div>
         <ul class="project-files-list list">
             <li>file1.png</li>
