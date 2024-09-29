@@ -61,11 +61,11 @@
         </ul>
     </fieldset>
     <div>
-        <button (click)="onPrevious($event)" *ngIf="step !== 0; else pseudoBlock">Previous</button>
+        <button (click)="onPrevious($event)" *ngIf="step !== 0; else pseudoBlock" class="previous-btn">Previous</button>
         <ng-template #pseudoBlock><div></div></ng-template>
-        <button *ngIf="step !== 3; else submit" (click)="onNext($event)">Next</button>
+        <button *ngIf="step !== 3; else submit" (click)="onNext($event)" class="next-btn">Next</button>
         <ng-template #submit>
-            <button>Submit</button>
+            <button class="submit-btn">Submit</button>
         </ng-template>
     </div>
 </form>
