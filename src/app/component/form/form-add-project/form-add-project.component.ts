@@ -1,8 +1,9 @@
 import { NgIf } from '@angular/common';
-import { Component } from '@angular/core';
+import { Component, EventEmitter, Output } from '@angular/core';
 import {FormControl, FormGroup, ReactiveFormsModule} from '@angular/forms'
 import ProjectService from '../../../core/services/projectService';
 import Project from '../../../core/models/project';
+import { ProjectSubmittedArgs } from './ProjectSubmittedArgs';
 
 @Component({
   selector: 'app-form-add-project',
@@ -24,7 +25,8 @@ export class FormAddProjectComponent {
     link_title_control: new FormControl('')
   })
 
-  constructor(private myService: ProjectService) {}
+
+  @Output() formSubmitted = new EventEmitter<ProjectSubmittedArgs>()
 
   onPrevious(event: MouseEvent) {
     event.preventDefault()
@@ -39,18 +41,16 @@ export class FormAddProjectComponent {
   }
 
   onSubmit() {
-    this.myService.createProject(
-      Project.fromObject({
+    this.formSubmitted.emit({
+      project: Project.fromObject({
         id: '1',
         name: this.projectForm.get('title_control')?.value || "",
         description: this.projectForm.get('description_control')?.value || "",
         links: [{ name: 'front-end', link: 'https://github.com/cyrilauq/cyrilauq.github.io' }],
         technologies: ['Vue JS 3', 'HTML', 'CSS', 'TypeScript', 'Firebase']
       }),
-      this.miniatureFile || File.prototype,
-      this.screenShotsFiles)
-    .subscribe({
-      error: alert
+      miniature: this.miniatureFile || File.prototype,
+      screenshots: this.screenShotsFiles
     })
   }
 
