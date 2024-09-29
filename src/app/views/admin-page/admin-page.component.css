@@ -1,3 +1,9 @@
 :host {
     align-self: flex-start;
 }
+
+.create-project-form {
+    position: absolute;
+    margin-inline: auto;
+    margin-top: 150px;
+}

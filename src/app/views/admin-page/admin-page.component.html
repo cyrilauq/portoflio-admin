@@ -1,7 +1,12 @@
 <h2>Admin panel</h2>
 
+<app-form-add-project (formSubmitted)="onProjectSubmitted($event)" [hidden]="!createFormIsVisible" class="create-project-form" />
 <section>
     <p>{{count}}</p>
-
-    <app-form-add-project />
+    <div>
+        <button (click)="onCreateBtnClicked()">Create project</button>
+    </div>
+    <section>
+        <app-project-miniature *ngFor="let project of projects" [project]="project" />
+    </section>
 </section>
