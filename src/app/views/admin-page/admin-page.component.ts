@@ -12,14 +12,18 @@ import { POJECT_SERVICE_TOKEN } from '../../list-token'
   standalone: true,
   imports: [FormAddProjectComponent, ProjectMiniatureComponent, NgFor],
   templateUrl: './admin-page.component.html',
-  styleUrl: './admin-page.component.css'
+  providers: [
+    {
+      provide: POJECT_SERVICE_TOKEN, useValue: ProjectService
+    }
+  ]
 })
 export class AdminPageComponent implements OnInit {
   count = 0
   createFormIsVisible = false
   projects = Array<Project>(0)
   
-  constructor(@Inject(POJECT_SERVICE_TOKEN) private myService: IProjectService) {}
+  constructor(private projectService: ProjectService, private miniatureService: ProjectMiniatureService) {}
 
   ngOnInit(): void {
     this.myService.getProjects().subscribe({
