@@ -9,11 +9,11 @@ import {
   } from '@angular/core';
   
   @Directive({
-    selector: '[click.stopped]',
+    selector: '[click.prevent]',
     standalone: true
   })
-  export class StopPropDirective implements OnInit, OnDestroy {
-    @Output('click.stopped') clicked = new EventEmitter<Event>();
+  export class PreventDefaultDirective implements OnInit, OnDestroy {
+    @Output('click.prevent') clicked = new EventEmitter<Event>();
   
     private unlisten: Function | undefined;
   

@@ -4,12 +4,12 @@ import {FormControl, FormGroup, ReactiveFormsModule} from '@angular/forms'
 import Project from '../../../core/models/project';
 import { ProjectSubmittedArgs } from './ProjectSubmittedArgs';
 import Link from '../../../core/models/link';
-import { StopPropDirective } from '../../../shared/directives/stopPropDirective';
+import { PreventDefaultDirective } from '../../../shared/directives/preventDefaultDirective';
 
 @Component({
   selector: 'app-form-add-project',
   standalone: true,
-  imports: [NgIf, ReactiveFormsModule, StopPropDirective, NgFor],
+  imports: [NgIf, ReactiveFormsModule, PreventDefaultDirective, NgFor],
   templateUrl: './form-add-project.component.html',
   styleUrl: './form-add-project.component.css'
 })

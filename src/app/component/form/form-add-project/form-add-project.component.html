@@ -26,7 +26,7 @@
         </ul>
         <div class="input-wrapper">
             <input type="text" name="technologie" id="technologie" formControlName="technologie_control" />
-            <button (click.stopped)="onTechnoAddClicked()">Add technologie</button>
+            <button (click.prevent)="onTechnoAddClicked()">Add technologie</button>
         </div>
     </fieldset>
     <fieldset *ngIf="step === 2">
@@ -37,7 +37,7 @@
         <div class="input-wrapper">
             <input type="url" name="link_src" id="link_src" formControlName="link_src_control" />
             <input type="text" name="link_name" id="link_name" formControlName="link_title_control" />
-            <button (click.stopped)="onLinkAddClicked();">Add link</button>
+            <button (click.prevent)="onLinkAddClicked();">Add link</button>
         </div>
     </fieldset>
     <fieldset *ngIf="step === 3">
@@ -57,9 +57,9 @@
         </ul>
     </fieldset>
     <div>
-        <button (click.stopped)="onPrevious()" *ngIf="step !== 0; else pseudoBlock" class="previous-btn">Previous</button>
+        <button (click.prevent)="onPrevious()" *ngIf="step !== 0; else pseudoBlock" class="previous-btn">Previous</button>
         <ng-template #pseudoBlock><div></div></ng-template>
-        <button *ngIf="step !== 3; else submit" (click.stopped)="onNext()" class="next-btn">Next</button>
+        <button *ngIf="step !== 3; else submit" (click.prevent)="onNext()" class="next-btn">Next</button>
         <ng-template #submit>
             <button class="submit-btn">Submit</button>
         </ng-template>
