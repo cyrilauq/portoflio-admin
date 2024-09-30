@@ -22,21 +22,17 @@
     <fieldset *ngIf="step === 1">
         <h4>Technologies</h4>
         <ul class="project-tag-list list">
-            <li>tag 1</li>
-            <li>tag 2</li>
+            <li *ngFor="let techno of technologies">{{ techno }}</li>
         </ul>
         <div class="input-wrapper">
             <input type="text" name="technologie" id="technologie" formControlName="technologie_control" />
-            <button>Add technologie</button>
+            <button (click.stopped)="onTechnoAddClicked()">Add technologie</button>
         </div>
     </fieldset>
     <fieldset *ngIf="step === 2">
         <h4>Technologies</h4>
         <ul class="project-links-list list">
-            <li>github (front): link</li>
-            <li>github (front): link</li>
-            <li>github (front): link</li>
-            <li>github (front): link</li>
+            <li *ngFor="let link of links">{{ link.name }} : <a [href]="link.link">see link</a></li>
         </ul>
         <div class="input-wrapper">
             <input type="url" name="link_src" id="link_src" formControlName="link_src_control" />

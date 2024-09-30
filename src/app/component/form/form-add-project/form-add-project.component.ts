@@ -16,6 +16,8 @@ export class FormAddProjectComponent {
   step = 0
   miniatureFile: File | undefined
   screenShotsFiles: Array<File> = []
+  technologies: Array<string> = []
+  links: Array<Link> = []
   public projectForm = new FormGroup({
     title_control: new FormControl(''),
     description_control: new FormControl(''),
@@ -28,15 +30,13 @@ export class FormAddProjectComponent {
 
   @Output() formSubmitted = new EventEmitter<ProjectSubmittedArgs>()
 
-  onPrevious(event: MouseEvent) {
-    event.preventDefault()
+  onPrevious() {
     if(this.step > 0) {
       this.step--
     }
   }
 
-  onNext(event: MouseEvent) {
-    event.preventDefault()
+  onNext() {
     this.step++
   }
 
@@ -46,12 +46,20 @@ export class FormAddProjectComponent {
         id: '1',
         name: this.projectForm.get('title_control')?.value || "",
         description: this.projectForm.get('description_control')?.value || "",
-        links: [{ name: 'front-end', link: 'https://github.com/cyrilauq/cyrilauq.github.io' }],
-        technologies: ['Vue JS 3', 'HTML', 'CSS', 'TypeScript', 'Firebase']
+        links: [...this.links],
+        technologies: [...this.technologies]
       }),
       miniature: this.miniatureFile || File.prototype,
       screenshots: this.screenShotsFiles
     })
+  }
+
+  onTechnoAddClicked() {
+    this.technologies.push(this.projectForm.get('technologie_control')!.value!)
+  }
+
+  onLinkAddClicked() {
+    this.links.push(Link.fromObject({ link: this.projectForm.get('link_src_control')!.value!, name: this.projectForm.get('link_title_control')!.value!}))
   }
 
   onMiniatureSelected(event: Event) {
