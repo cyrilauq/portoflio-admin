@@ -4,6 +4,7 @@ import { AdminPageComponent } from './admin-page.component';
 import { BehaviorSubject, Observable, of } from 'rxjs';
 import { POJECT_SERVICE_TOKEN } from '../../list-token';
 import Project from '../../core/models/project';
+import ProjectService from '../../core/services/projectService';
 
 describe('AdminPageComponent', () => {
   let component: AdminPageComponent;
@@ -16,7 +17,7 @@ describe('AdminPageComponent', () => {
       ],
       providers: [
         { 
-          provide: POJECT_SERVICE_TOKEN, 
+          provide: ProjectService, 
           useValue: {
             getProjects(): Observable<Project[]> {
               return of([])

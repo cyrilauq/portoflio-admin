@@ -1,8 +1,8 @@
 <article>
-    <span>{{ project.name }}</span>
+    <span class="project-title">{{ project.name }}</span>
     <a routerLink="/" routerLinkActive="active" ariaCurrentWhenActive="page">see project</a>
     <div class="action-btn">
-        <button>Edit</button>
-        <button>Delete</button>
+        <button (click.prevent)="onEditClicked()" class="project-edit-btn">Edit</button>
+        <button (click.prevent)="onDeleteClicked()" class="project-delete-btn">Delete</button>
     </div>
 </article>
