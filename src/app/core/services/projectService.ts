@@ -1,13 +1,13 @@
 import { BehaviorSubject, firstValueFrom, Observable } from "rxjs";
 import Project from "../models/project";
-import { Injectable } from "@angular/core";
+import { forwardRef, Injectable } from "@angular/core";
 import { AngularFirestore } from '@angular/fire/compat/firestore';
 import Link from "../models/link";
 import { AngularFireStorage } from "@angular/fire/compat/storage";
 import IProjectService from "./interfaces/iProjectService";
 
 @Injectable({
-    providedIn: 'root'
+    providedIn: 'root',
 })
 export default class ProjectService implements IProjectService {
     projects: BehaviorSubject<Project[]> = new BehaviorSubject<Project[]>([])
