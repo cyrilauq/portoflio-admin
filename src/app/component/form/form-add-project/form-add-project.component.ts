@@ -1,14 +1,15 @@
-import { NgIf } from '@angular/common';
+import { NgFor, NgIf } from '@angular/common';
 import { Component, EventEmitter, Output } from '@angular/core';
 import {FormControl, FormGroup, ReactiveFormsModule} from '@angular/forms'
-import ProjectService from '../../../core/services/projectService';
 import Project from '../../../core/models/project';
 import { ProjectSubmittedArgs } from './ProjectSubmittedArgs';
+import Link from '../../../core/models/link';
+import { StopPropDirective } from '../../../shared/directives/stopPropDirective';
 
 @Component({
   selector: 'app-form-add-project',
   standalone: true,
-  imports: [NgIf, ReactiveFormsModule],
+  imports: [NgIf, ReactiveFormsModule, StopPropDirective, NgFor],
   templateUrl: './form-add-project.component.html',
   styleUrl: './form-add-project.component.css'
 })
