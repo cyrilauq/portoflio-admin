@@ -1,6 +1,9 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { AdminPageComponent } from './admin-page.component';
+import { BehaviorSubject, Observable, of } from 'rxjs';
+import ProjectService from '../../core/services/projectService';
+import Project from '../../core/models/project';
 
 describe('AdminPageComponent', () => {
   let component: AdminPageComponent;
@@ -8,7 +11,19 @@ describe('AdminPageComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [AdminPageComponent]
+      imports: [
+        AdminPageComponent, 
+      ],
+      providers: [
+        { 
+          provide: ProjectService, 
+          useValue: {
+            getProjects(): Observable<Project[]> {
+              return of([])
+            }
+          } 
+        }
+      ]
     })
     .compileComponents();
 
