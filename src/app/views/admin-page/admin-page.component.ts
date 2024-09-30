@@ -1,10 +1,11 @@
-import { Component, OnInit} from '@angular/core';
+import { Component, Inject, OnInit} from '@angular/core';
 import { FormAddProjectComponent } from '../../component/form/form-add-project/form-add-project.component';
-import ProjectService from '../../core/services/projectService';
 import { ProjectSubmittedArgs } from '../../component/form/form-add-project/ProjectSubmittedArgs';
 import { ProjectMiniatureComponent } from '../../component/miniature/project-miniature/project-miniature.component';
 import { NgFor } from '@angular/common';
 import Project from '../../core/models/project';
+import IProjectService from '../../core/services/interfaces/iProjectService';
+import { POJECT_SERVICE_TOKEN } from '../../list-token'
 
 @Component({
   selector: 'app-admin-page',
@@ -18,7 +19,7 @@ export class AdminPageComponent implements OnInit {
   createFormIsVisible = false
   projects = Array<Project>(0)
   
-  constructor(private myService: ProjectService) {}
+  constructor(@Inject(POJECT_SERVICE_TOKEN) private myService: IProjectService) {}
 
   ngOnInit(): void {
     this.myService.getProjects().subscribe({
