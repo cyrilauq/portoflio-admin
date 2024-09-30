@@ -4,14 +4,17 @@ import { ProjectSubmittedArgs } from '../../component/form/form-add-project/Proj
 import { ProjectMiniatureComponent } from '../../component/miniature/project-miniature/project-miniature.component';
 import { NgFor } from '@angular/common';
 import Project from '../../core/models/project';
-import IProjectService from '../../core/services/interfaces/iProjectService';
 import { POJECT_SERVICE_TOKEN } from '../../list-token'
+import { ProjectsSectionComponent } from '../../component/sections/projects-section/projects-section.component';
+import ProjectService from '../../core/services/projectService';
+import ProjectMiniatureService from '../../component/miniature/project-miniature/projectMiniatureService';
 
 @Component({
   selector: 'app-admin-page',
   standalone: true,
-  imports: [FormAddProjectComponent, ProjectMiniatureComponent, NgFor],
+  imports: [FormAddProjectComponent, ProjectsSectionComponent],
   templateUrl: './admin-page.component.html',
+  styleUrl: './admin-page.component.css',
   providers: [
     {
       provide: POJECT_SERVICE_TOKEN, useValue: ProjectService
@@ -26,17 +29,28 @@ export class AdminPageComponent implements OnInit {
   constructor(private projectService: ProjectService, private miniatureService: ProjectMiniatureService) {}
 
   ngOnInit(): void {
-    this.myService.getProjects().subscribe({
+    this.projectService.getProjects().subscribe({
       next: (projects) => {
         this.count = projects.length
         this.projects = projects
       },
       error: (err) => alert(err)
     })
+
+    this.miniatureService.getDeletedProject().subscribe({
+      next: value => {
+        if(value) alert(value)
+      }
+    })
+    this.miniatureService.getEditedProject().subscribe({
+      next: value => {
+        if(value) alert(value)
+      }
+    })
   }
 
   onProjectSubmitted(args: ProjectSubmittedArgs) {
-    this.myService.createProject(
+    this.projectService.createProject(
       args.project,
       args.miniature,
       args.screenshots)
