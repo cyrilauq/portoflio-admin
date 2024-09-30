@@ -2,7 +2,7 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { AdminPageComponent } from './admin-page.component';
 import { BehaviorSubject, Observable, of } from 'rxjs';
-import ProjectService from '../../core/services/projectService';
+import { POJECT_SERVICE_TOKEN } from '../../list-token';
 import Project from '../../core/models/project';
 
 describe('AdminPageComponent', () => {
@@ -16,7 +16,7 @@ describe('AdminPageComponent', () => {
       ],
       providers: [
         { 
-          provide: ProjectService, 
+          provide: POJECT_SERVICE_TOKEN, 
           useValue: {
             getProjects(): Observable<Project[]> {
               return of([])
