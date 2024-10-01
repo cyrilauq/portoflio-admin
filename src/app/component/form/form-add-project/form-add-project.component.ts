@@ -1,6 +1,6 @@
 import { NgFor, NgIf } from '@angular/common';
 import { Component, EventEmitter, Output } from '@angular/core';
-import {FormControl, FormGroup, ReactiveFormsModule} from '@angular/forms'
+import {FormControl, FormGroup, ReactiveFormsModule, Validators} from '@angular/forms'
 import Project from '../../../core/models/project';
 import { ProjectSubmittedArgs } from './ProjectSubmittedArgs';
 import Link from '../../../core/models/link';
@@ -14,20 +14,63 @@ import { PreventDefaultDirective } from '../../../shared/directives/preventDefau
   styleUrl: './form-add-project.component.css'
 })
 export class FormAddProjectComponent {
+[x: string]: any;
   step = 0
   miniatureFile: File | undefined
   screenShotsFiles: Array<File> = []
   technologies: Array<string> = []
   links: Array<Link> = []
   public projectForm = new FormGroup({
-    title_control: new FormControl(''),
-    description_control: new FormControl(''),
-    live_link_control: new FormControl(''),
-    technologie_control: new FormControl(''),
-    link_src_control: new FormControl(''),
-    link_title_control: new FormControl('')
-  })
+    title_control: new FormControl('', [
+      Validators.required,
+      Validators.minLength(5)
+    ]),
+    description_control: new FormControl('', [
+      Validators.required,
+      Validators.minLength(25)
+    ]),
+    live_link_control: new FormControl('', [
+      Validators.required
+    ]),
+    technologie_control: new FormControl('', [
+      Validators.required,
+      Validators.minLength(2)
+    ]),
+    link_src_control: new FormControl('', [
+      Validators.required
+    ]),
+    link_title_control: new FormControl('', [
+      Validators.required,
+      Validators.minLength(5)
+    ]),
+  },
+{
+  updateOn:'blur'
+})
 
+  get title_control() {
+    return this.projectForm.get('title_control')!;
+  }
+
+  get description_control() { 
+    return this.projectForm.get('description_control')!;
+  }
+
+  get live_link_control() { 
+    return this.projectForm.get('live_link_control')!;
+  }
+
+  get technologie_control() { 
+    return this.projectForm.get('technologie_control')!;
+  }
+
+  get link_src_control() { 
+    return this.projectForm.get('link_src_control')!;
+  }
+
+  get link_title_control() { 
+    return this.projectForm.get('link_title_control')!;
+  }
 
   @Output() formSubmitted = new EventEmitter<ProjectSubmittedArgs>()
 
@@ -42,17 +85,32 @@ export class FormAddProjectComponent {
   }
 
   onSubmit() {
-    this.formSubmitted.emit({
-      project: Project.fromObject({
-        id: '1',
-        name: this.projectForm.get('title_control')?.value || "",
-        description: this.projectForm.get('description_control')?.value || "",
-        links: [...this.links],
-        technologies: [...this.technologies]
-      }),
-      miniature: this.miniatureFile || File.prototype,
-      screenshots: this.screenShotsFiles
-    })
+    this.revalidateFormInputs()
+    if(this.projectForm.valid) {
+      this.formSubmitted.emit({
+        project: Project.fromObject({
+          id: '1',
+          name: this.projectForm.get('title_control')?.value || "",
+          description: this.projectForm.get('description_control')?.value || "",
+          links: [...this.links],
+          technologies: [...this.technologies]
+        }),
+        miniature: this.miniatureFile || File.prototype,
+        screenshots: this.screenShotsFiles
+      })
+    } else {
+      alert("One or more fields aren't valid")
+    }
+  }
+
+  private revalidateFormInputs() {
+    this.projectForm.get('title_control')?.markAsDirty()
+    this.projectForm.get('description_control')?.markAsDirty()
+    this.projectForm.get('technologie_control')?.markAsDirty()
+    this.projectForm.get('link_src_control')?.markAsDirty()
+    this.projectForm.get('link_title_control')?.markAsDirty()
+    this.projectForm.get('live_link_control')?.markAsDirty()
+    this.projectForm.updateValueAndValidity()
   }
 
   onTechnoAddClicked() {
@@ -77,5 +135,9 @@ export class FormAddProjectComponent {
     if (files && files.length > 0) {
       this.screenShotsFiles.push(...files)
     }
+  }
+
+  getError(controlName: string) {
+    return Object.keys(this.projectForm.get(controlName)?.errors || [])
   }
 }

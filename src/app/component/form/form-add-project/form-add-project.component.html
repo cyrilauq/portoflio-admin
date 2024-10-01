@@ -5,14 +5,23 @@
         <div class="input-wrapper">
             <label for="title">Title</label>
             <input type="text" name="title" id="title" formControlName="title_control" />
+            <div *ngIf="title_control.invalid && title_control.dirty">
+                <p *ngFor="let error of getError('title_control')">{{ error }}</p>
+            </div>
         </div>
         <div class="input-wrapper">
             <label for="description">Description</label>
             <input type="text" name="description" id="description" formControlName="description_control" />
+            <div *ngIf="description_control.invalid && description_control.dirty">
+                <p *ngFor="let error of getError('description_control')">{{ error }}</p>
+            </div>
         </div>
         <div class="input-wrapper">
             <label for="live-link">Live link</label>
             <input type="text" name="live-link" id="live-link" formControlName="live_link_control" />
+            <div *ngIf="live_link_control.invalid && live_link_control.dirty">
+                <p *ngFor="let error of getError('live_link_control')">{{ error }}</p>
+            </div>
         </div>
     </fieldset>
     <fieldset *ngIf="step === 1">
@@ -23,6 +32,9 @@
         <div class="input-wrapper">
             <input type="text" name="technologie" id="technologie" formControlName="technologie_control" />
             <button (click.prevent)="onTechnoAddClicked()">Add technologie</button>
+            <div *ngIf="technologie_control.invalid && technologie_control.dirty">
+                <p *ngFor="let error of getError('technologie_control')">{{ error }}</p>
+            </div>
         </div>
     </fieldset>
     <fieldset *ngIf="step === 2">
@@ -34,6 +46,10 @@
             <input type="url" name="link_src" id="link_src" formControlName="link_src_control" />
             <input type="text" name="link_name" id="link_name" formControlName="link_title_control" />
             <button (click.prevent)="onLinkAddClicked();">Add link</button>
+            <div *ngIf="link_title_control.invalid && link_title_control.dirty || link_src_control.invalid && link_src_control.dirty">
+                <p *ngFor="let error of getError('link_src_control')">{{ error }}</p>
+                <p *ngFor="let error of getError('link_title_control')">{{ error }}</p>
+            </div>
         </div>
     </fieldset>
     <fieldset *ngIf="step === 3">
