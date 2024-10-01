@@ -1,3 +1,7 @@
+form {
+    background-color: white;
+}
+
 .input-wrapper {
     display: flex;
     flex-direction: column;
@@ -18,8 +22,6 @@
 }
 
 fieldset {
-    height: 300px;
-    width: 300px;
     display: flex;
     flex-direction: column;
     justify-content: center;

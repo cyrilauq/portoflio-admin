@@ -3,7 +3,9 @@
 }
 
 .create-project-form {
-    position: absolute;
+    position: fixed;
     margin-inline: auto;
+    width: fit-content;
     margin-top: 150px;
+    inset: 0;
 }
