@@ -8,11 +8,12 @@ import { POJECT_SERVICE_TOKEN } from '../../list-token'
 import { ProjectsSectionComponent } from '../../component/sections/projects-section/projects-section.component';
 import ProjectService from '../../core/services/projectService';
 import ProjectMiniatureService from '../../component/miniature/project-miniature/projectMiniatureService';
+import { SaveSkillFormComponent } from '../../component/form/save-skill-form/save-skill-form.component';
 
 @Component({
   selector: 'app-admin-page',
   standalone: true,
-  imports: [FormAddProjectComponent, ProjectsSectionComponent],
+  imports: [FormAddProjectComponent, ProjectsSectionComponent, SaveSkillFormComponent],
   templateUrl: './admin-page.component.html',
   styleUrl: './admin-page.component.css',
   providers: [
@@ -24,6 +25,7 @@ import ProjectMiniatureService from '../../component/miniature/project-miniature
 export class AdminPageComponent implements OnInit {
   count = 0
   createFormIsVisible = false
+  saveSkillFormIsVisible = false
   projects = Array<Project>(0)
   
   constructor(private projectService: ProjectService, private miniatureService: ProjectMiniatureService) {}
@@ -67,5 +69,9 @@ export class AdminPageComponent implements OnInit {
 
   onCreateBtnClicked() {
     this.createFormIsVisible = !this.createFormIsVisible
+  }
+
+  onSaveSkillBtnClicked() {
+    this.saveSkillFormIsVisible = !this.saveSkillFormIsVisible
   }
 }

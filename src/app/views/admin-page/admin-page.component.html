@@ -3,10 +3,15 @@
 <div [hidden]="!createFormIsVisible" class="create-project-form">
     <app-form-add-project (formSubmitted)="onProjectSubmitted($event)" />
 </div>
+
+<div [hidden]="!saveSkillFormIsVisible" class="create-project-form">
+    <app-save-skill-form />
+</div>
 <section>
     <p>{{count}}</p>
     <div>
         <button (click)="onCreateBtnClicked()">Create project</button>
+        <button (click)="onSaveSkillBtnClicked()">Add skill</button>
     </div>
     <app-projects-section [projects]="projects" />
 </section>
