@@ -43,8 +43,8 @@
             <li *ngFor="let link of links">{{ link.name }} : <a [href]="link.link">see link</a></li>
         </ul>
         <div class="input-wrapper">
-            <input type="url" name="link_src" id="link_src" formControlName="link_src_control" />
-            <input type="text" name="link_name" id="link_name" formControlName="link_title_control" />
+            <label>Link name: <input type="text" name="link_name" id="link_name" formControlName="link_title_control" /></label>
+            <label>Link source: <input type="url" name="link_src" id="link_src" formControlName="link_src_control" /></label>
             <button (click.prevent)="onLinkAddClicked();">Add link</button>
             <div *ngIf="link_title_control.invalid && link_title_control.dirty || link_src_control.invalid && link_src_control.dirty">
                 <p *ngFor="let error of getError('link_src_control')">{{ error }}</p>
