@@ -1,1 +1,9 @@
-<p>save-skill-form works!</p>
+<form [formGroup]="skillForm" (ngSubmit)="onSubmit()">
+    <div class="input-wrapper">
+        <label>Skill name: <input id="skill_name" name="skill_name" type="text" placeholder="name of the skill/language" formControlName="skill_name_control" /></label>
+    </div>
+    <div class="input-wrapper">
+        <label>Skill name: <input id="skill_name" name="skill_name" min="1" max="10" type="number" value="1" formControlName="skill_expertise_control" /></label>
+    </div>
+    <button>Save skill</button>
+</form>

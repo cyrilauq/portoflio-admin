@@ -9,3 +9,8 @@
     margin-top: 150px;
     inset: 0;
 }
+
+#skills_section > section {
+    display: flex;
+    flex-direction: column;
+}

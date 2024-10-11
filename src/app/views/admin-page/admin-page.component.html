@@ -5,13 +5,24 @@
 </div>
 
 <div [hidden]="!saveSkillFormIsVisible" class="create-project-form">
-    <app-save-skill-form />
+    <app-save-skill-form (formSubmitted)="onSkillSubmitted($event)" />
 </div>
 <section>
-    <p>{{count}}</p>
+    <p>Number of project {{ projectCount }}</p>
     <div>
         <button (click)="onCreateBtnClicked()">Create project</button>
-        <button (click)="onSaveSkillBtnClicked()">Add skill</button>
     </div>
     <app-projects-section [projects]="projects" />
+</section>
+<section id="skills_section">
+    <p>Number of skills {{ skillCount }}</p>
+    <div>
+        <button (click)="onSaveSkillBtnClicked()">Add skill</button>
+    </div>
+    <section>
+        <div *ngFor="let skill of skills">
+            <p>{{ skill.name }}</p>
+            <button (click.prevent)="onDeleteSkill(skill.name)">Delete</button>
+        </div>
+    </section>
 </section>

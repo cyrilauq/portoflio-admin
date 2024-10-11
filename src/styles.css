@@ -14,3 +14,28 @@ app-root {
     flex-direction: column;
     align-items: center;
 }
+
+.input-wrapper {
+    display: flex;
+    flex-direction: column;
+}
+
+.input-wrapper input {
+    min-width: 12rem;
+    margin-bottom: 1.2rem;
+}
+
+.input-wrapper label {
+    font-weight: 600;
+    margin-bottom: .5rem;
+}
+
+.input-wrapper label::after {
+    content: ":";
+}
+
+form {
+    background-color: white;
+    display: flex;
+    flex-direction: column;
+}

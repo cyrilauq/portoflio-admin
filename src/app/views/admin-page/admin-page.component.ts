@@ -8,12 +8,15 @@ import { POJECT_SERVICE_TOKEN } from '../../list-token'
 import { ProjectsSectionComponent } from '../../component/sections/projects-section/projects-section.component';
 import ProjectService from '../../core/services/projectService';
 import ProjectMiniatureService from '../../component/miniature/project-miniature/projectMiniatureService';
-import { SaveSkillFormComponent } from '../../component/form/save-skill-form/save-skill-form.component';
+import { SaveSkillFormComponent, SaveSkillFormSubmitArgs } from '../../component/form/save-skill-form/save-skill-form.component';
+import SkillService from '../../core/services/skillService';
+import Skill from '../../core/models/skill';
+import { PreventDefaultDirective } from '../../shared/directives/preventDefaultDirective';
 
 @Component({
   selector: 'app-admin-page',
   standalone: true,
-  imports: [FormAddProjectComponent, ProjectsSectionComponent, SaveSkillFormComponent],
+  imports: [FormAddProjectComponent, ProjectsSectionComponent, SaveSkillFormComponent, NgFor, PreventDefaultDirective],
   templateUrl: './admin-page.component.html',
   styleUrl: './admin-page.component.css',
   providers: [
@@ -23,20 +26,29 @@ import { SaveSkillFormComponent } from '../../component/form/save-skill-form/sav
   ]
 })
 export class AdminPageComponent implements OnInit {
-  count = 0
+  projectCount = 0
+  skillCount = 0
   createFormIsVisible = false
   saveSkillFormIsVisible = false
   projects = Array<Project>(0)
+  skills = Array<Skill>(0)
   
-  constructor(private projectService: ProjectService, private miniatureService: ProjectMiniatureService) {}
+  constructor(private projectService: ProjectService, private skillService: SkillService, private miniatureService: ProjectMiniatureService) {}
 
   ngOnInit(): void {
     this.projectService.getProjects().subscribe({
       next: (projects) => {
-        this.count = projects.length
+        this.projectCount = projects.length
         this.projects = projects
       },
       error: (err) => alert(err)
+    })
+    this.skillService.getSkills().subscribe({
+      next: (skills) => {
+        this.skillCount = skills.length
+        this.skills = skills
+      },
+      error: alert
     })
 
     this.miniatureService.getDeletedProject().subscribe({
@@ -67,11 +79,29 @@ export class AdminPageComponent implements OnInit {
     })
   }
 
+  onSkillSubmitted(args: SaveSkillFormSubmitArgs) {
+    this.skillService.insert({
+      name: args.skillName,
+      expertise: args.skillExperise
+    })
+    .subscribe({
+      error: alert
+    })
+  }
+
   onCreateBtnClicked() {
     this.createFormIsVisible = !this.createFormIsVisible
   }
 
   onSaveSkillBtnClicked() {
     this.saveSkillFormIsVisible = !this.saveSkillFormIsVisible
+  }
+  
+  onDeleteSkill(skillName: string) {
+    this.skillService.delete(skillName)
+    .subscribe({
+      next: value => value && alert("Skill sucessfully deleted"),
+      error: alert
+    })
   }
 }

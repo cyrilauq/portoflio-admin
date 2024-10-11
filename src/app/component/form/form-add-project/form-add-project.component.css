@@ -2,25 +2,6 @@ form {
     background-color: white;
 }
 
-.input-wrapper {
-    display: flex;
-    flex-direction: column;
-}
-
-.input-wrapper input {
-    min-width: 12rem;
-    margin-bottom: 1.2rem;
-}
-
-.input-wrapper label {
-    font-weight: 600;
-    margin-bottom: .5rem;
-}
-
-.input-wrapper label::after {
-    content: ":";
-}
-
 fieldset {
     display: flex;
     flex-direction: column;
