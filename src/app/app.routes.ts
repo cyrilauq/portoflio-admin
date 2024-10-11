@@ -3,7 +3,7 @@ import { AdminPageComponent } from './views/admin-page/admin-page.component';
 
 export const routes: Routes = [
     {
-        path: 'admin-panel',
+        path: '',
         component: AdminPageComponent
     }
 ];

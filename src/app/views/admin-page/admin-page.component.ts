@@ -39,8 +39,14 @@ export class AdminPageComponent implements OnInit {
 
     this.miniatureService.getDeletedProject().subscribe({
       next: value => {
-        if(value) alert(value)
-      }
+        if(confirm("Are you sure you want to delete the project?")) {
+          this.projectService.deleteProject(value || "").subscribe({
+            next: (success) =>  success && alert("Project sucessfully deleted"),
+            error: (err) => alert(err)
+          })
+        }
+      },
+      error: (err) => alert(err)
     })
     this.miniatureService.getEditedProject().subscribe({
       next: value => {

@@ -1,4 +1,4 @@
-import { BehaviorSubject, firstValueFrom, Observable } from "rxjs";
+import { BehaviorSubject, firstValueFrom, Observable, of } from "rxjs";
 import Project from "../models/project";
 import { forwardRef, Injectable } from "@angular/core";
 import { AngularFirestore } from '@angular/fire/compat/firestore';
@@ -20,7 +20,7 @@ export default class ProjectService implements IProjectService {
             const convertedDatas: Project[] = datas.docs.map<Project>(doc => {
                 const docData = doc.data() as any;
                 docData.links = Object.keys(docData.links).map(k => Link.fromObject({ link: docData.links[k], name: k }))
-                return Project.fromObject(docData)
+                return Project.fromObject({ ...docData, id: doc.id })
             })
             this.projects.next(convertedDatas)
         })
@@ -50,7 +50,7 @@ export default class ProjectService implements IProjectService {
             for (const screenshot of screenshots) {
                 screenshotLinks.push(await this.uploadFile(screenshot))
             }
-            this.projects.next([...this.projects.value, project])
+            this.projects.next([...this.projects.value, Project.fromObject({ ...project, id: docId })])
             return value.update({
                 miniatureLink,
                 screenshotLinks
@@ -68,5 +68,20 @@ export default class ProjectService implements IProjectService {
         await storageRef.put(file);
         // await for the observable to return the first value
         return (await firstValueFrom(storageRef.getDownloadURL())) as string
+    }
+
+    deleteProject(projectId: string): Observable<boolean> {
+        const result = new BehaviorSubject(false);
+        const collectionRef = this.firestore.collection('projects');
+        collectionRef.doc(projectId).delete()
+            .then(() => {
+                result.next(true);
+                this.projects.next([...this.projects.value.filter(p => p.id !== projectId)])
+            })
+            .catch((error) => {
+                console.error(error);
+                result.error(new Error("An error occured while deleting the project"))
+            })
+        return result.asObservable();
     }
 }
