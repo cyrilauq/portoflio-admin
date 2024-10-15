@@ -12,11 +12,12 @@ import { SaveSkillFormComponent, SaveSkillFormSubmitArgs } from '../../component
 import SkillService from '../../core/services/skillService';
 import Skill from '../../core/models/skill';
 import { PreventDefaultDirective } from '../../shared/directives/preventDefaultDirective';
+import { ActionButtonComponent } from "../../component/global/action-button/action-button.component";
 
 @Component({
   selector: 'app-admin-page',
   standalone: true,
-  imports: [FormAddProjectComponent, ProjectsSectionComponent, SaveSkillFormComponent, NgFor, PreventDefaultDirective],
+  imports: [FormAddProjectComponent, ProjectsSectionComponent, SaveSkillFormComponent, NgFor, PreventDefaultDirective, ActionButtonComponent],
   templateUrl: './admin-page.component.html',
   styleUrl: './admin-page.component.css',
   providers: [

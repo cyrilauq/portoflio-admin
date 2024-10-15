@@ -1,5 +1,8 @@
 :host {
     align-self: flex-start;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
 }
 
 .create-project-form {
