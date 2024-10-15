@@ -1,7 +1,7 @@
 <h2>Admin panel</h2>
 
 <div [hidden]="!createFormIsVisible" class="create-project-form">
-    <app-form-add-project (formSubmitted)="onProjectSubmitted($event)" />
+    <app-form-add-project (formSubmitted)="onProjectSubmitted($event)" [skills]="skills" />
 </div>
 
 <div [hidden]="!saveSkillFormIsVisible" class="create-project-form">
