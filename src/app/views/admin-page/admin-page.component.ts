@@ -82,9 +82,15 @@ export class AdminPageComponent implements OnInit {
   onSkillSubmitted(args: SaveSkillFormSubmitArgs) {
     this.skillService.insert({
       name: args.skillName,
-      expertise: args.skillExperise
+      expertise: args.skillExperise,
+      type: args.skillType
     })
     .subscribe({
+      next: value => {
+        if(value) {
+          this.saveSkillFormIsVisible = false
+        }
+      },
       error: alert
     })
   }
