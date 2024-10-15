@@ -30,7 +30,9 @@
             <li *ngFor="let techno of technologies">{{ techno }}</li>
         </ul>
         <div class="input-wrapper">
-            <input type="text" name="technologie" id="technologie" formControlName="technologie_control" />
+            <select formControlName="technologie_control">
+                <option *ngFor="let skill of skills" [value]="skill.name">{{ skill.name }}</option>
+            </select>
             <button (click.prevent)="onTechnoAddClicked()">Add technologie</button>
             <div *ngIf="technologie_control.invalid && technologie_control.dirty">
                 <p *ngFor="let error of getError('technologie_control')">{{ error }}</p>

@@ -1,10 +1,11 @@
 import { NgFor, NgIf } from '@angular/common';
-import { Component, EventEmitter, Output } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import {FormControl, FormGroup, ReactiveFormsModule, Validators} from '@angular/forms'
 import Project from '../../../core/models/project';
 import { ProjectSubmittedArgs } from './ProjectSubmittedArgs';
 import Link from '../../../core/models/link';
 import { PreventDefaultDirective } from '../../../shared/directives/preventDefaultDirective';
+import Skill from '../../../core/models/skill';
 
 @Component({
   selector: 'app-form-add-project',
@@ -73,6 +74,8 @@ export class FormAddProjectComponent {
   }
 
   @Output() formSubmitted = new EventEmitter<ProjectSubmittedArgs>()
+  
+  @Input({ required: true }) skills!: Array<Skill> 
 
   onPrevious() {
     if(this.step > 0) {
